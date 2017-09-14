@@ -14,7 +14,7 @@ genreXpose/saved_model
 
 # Distribution / packaging
 .Python
-env/
+venv/
 bin/
 build/
 develop-eggs/
