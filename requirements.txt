@@ -4,3 +4,4 @@ scikit-learn==0.14.1
 scikits.statsmodels==0.3.1
 scikits.talkbox==0.2.5
 scipy==0.13.1
+matplotlib
