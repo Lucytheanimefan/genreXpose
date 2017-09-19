@@ -61,8 +61,10 @@ def train_model(X, Y, name, plot=False):
         for label in labels:
             y_label_test = np.asarray(y_test == label, dtype=int)
             proba = clf.predict_proba(X_test)
-            print proba
-            proba_label = proba[:, label]
+            if label < 7:
+                print label
+                proba_label = proba[:, label]
+                #print proba_label
 
             fpr, tpr, roc_thresholds = roc_curve(y_label_test, proba_label)
             roc_scores[label].append(auc(fpr, tpr))
@@ -78,7 +80,7 @@ def train_model(X, Y, name, plot=False):
 
     all_pr_scores = np.asarray(pr_scores.values()).flatten()
     summary = (np.mean(scores), np.std(scores), np.mean(all_pr_scores), np.std(all_pr_scores))
-    #print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)
+    print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)
 
     #save the trained model to disk
     joblib.dump(clf, 'saved_model/model_cepsls')
