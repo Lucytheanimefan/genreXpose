@@ -83,7 +83,7 @@ def train_model(X, Y, name, plot=False):
     print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)
 
     #save the trained model to disk
-    joblib.dump(clf, 'saved_model/model_cepsls')
+    joblib.dump(clf, 'saved_model/model_cepsls.pkl')
     
     return np.mean(train_errors), np.mean(test_errors), np.asarray(cms)
 

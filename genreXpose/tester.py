@@ -10,7 +10,7 @@ from sklearn.linear_model.logistic import LogisticRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.externals import joblib
 
-from utils import plot_roc, plot_confusion_matrix, GENRE_DIR, GENRE_LIST, TEST_DIR
+from utils import plot_roc_curves, plot_confusion_matrix, GENRE_DIR, GENRE_LIST, TEST_DIR
 
 from ceps import read_ceps, create_ceps_test, read_ceps_test
 
@@ -25,7 +25,7 @@ clf = None
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 def test_model_on_single_file(file_path):
-    clf = joblib.load('saved_model/model_ceps.pkl')
+    clf = joblib.load('saved_model/model_cepsls.pkl')
     X, y = read_ceps_test(create_ceps_test(test_file)+".npy")
     probs = clf.predict_proba(X)
     print "\t".join(str(x) for x in traverse)
@@ -48,7 +48,7 @@ if __name__ == "__main__":
         traverse = list(set(dirs).intersection(set(GENRE_LIST)))
         break
 
-    test_file = "/home/jaz/Desktop/genre-project/genres_test_set/Metallica - Enter the Sandman -  mp3.pk.wav"
+    test_file = "/Users/lucyzhang/Github/music-drawer-browser/static/uploads/Stuff/Sakura.wav"
     # should predict genre as "ROCK"
     predicted_genre = test_model_on_single_file(test_file)
     
