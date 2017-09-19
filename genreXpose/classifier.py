@@ -22,7 +22,7 @@ def train_model(X, Y, name, plot=False):
     """
     labels = np.unique(Y)
 
-    cv = ShuffleSplit(n=len(X), n_iterations=1, test_fraction=0.3, indices=True, random_state=0)
+    cv = ShuffleSplit(n=len(X), n_iterations=1, test_size=0.3, indices=True, random_state=0)
 
     train_errors = []
     test_errors = []
@@ -61,6 +61,7 @@ def train_model(X, Y, name, plot=False):
         for label in labels:
             y_label_test = np.asarray(y_test == label, dtype=int)
             proba = clf.predict_proba(X_test)
+            print proba
             proba_label = proba[:, label]
 
             fpr, tpr, roc_thresholds = roc_curve(y_label_test, proba_label)
@@ -80,7 +81,7 @@ def train_model(X, Y, name, plot=False):
     #print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)
 
     #save the trained model to disk
-    joblib.dump(clf, 'saved_model/model_ceps.pkl')
+    joblib.dump(clf, 'saved_model/model_cepsls')
     
     return np.mean(train_errors), np.mean(test_errors), np.asarray(cms)
 
@@ -90,6 +91,8 @@ if __name__ == "__main__":
     print
     print " Starting classification \n"
     print " Classification running ... \n" 
+    #for label, genre in enumerate(genre_list):
+    #    print str(label) + "," + genre
     X, y = read_ceps(genre_list)
     train_avg, test_avg, cms = train_model(X, y, "ceps", plot=True)
     cm_avg = np.mean(cms, axis=0)
